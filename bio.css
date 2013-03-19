@@ -1,0 +1,199 @@
+body {
+    font-family: Arial, Helvetica, sans-serif; 
+}
+
+h1 {
+    text-align: center;
+}
+
+#creature {
+    width: 30%;
+    margin-left: 70%;
+    /* float: right; */
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+#bitsandbuttons {
+    width: 65%;
+    font-family: Arial, Helvetica, sans-serif; 
+    float: left;
+    margin-top: 2em;
+}
+
+
+ul#bitlist {
+    list-style: none;
+    margin: 0;
+    padding: 0
+}
+
+
+ul#bitlist li {
+    float: left;
+    font-size: 4em;
+    display: block;
+    background-color: #679fd2;
+    width: 24%;
+    margin: 0;
+    text-align: center;
+
+}
+
+ul#bitlist li a {
+    text-decoration: none;
+    display: block;
+    padding: 0.5em 0;
+    border-width: 2px;
+    border-color: #ffe #aaab9c #ccc white;
+    border-style: solid;
+    color: black;
+}
+
+ul#bitlist li#active a {
+    background: #f0e7d7;
+    color: #800000;
+}
+
+ul#bitlist li a:hover, ul#bitlist li#active a:hover {
+    color: #800000;
+    background: transparent;
+    border-color: #aaab9c #fff #fff #ccc;
+}
+
+
+/*
+#bitdiv {
+    margin: 10px;
+    padding: 0;
+
+}
+
+ to stretch the container div to contain floated list 
+
+
+#bitdiv:after {
+    content: ".";
+    display: block;
+    line-height: 1px;
+    font-size: 1px;
+    clear: both;
+}
+
+
+ul#bitlist {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+    font-size: 4em;
+}
+
+
+ul#bitlist li {
+    display: block;
+    float: left;
+    width: 25%;
+    margin: 0;
+    padding: 0;
+}
+
+ul#bitlist li a {
+    display: block;
+    width: 100%;
+    padding: 0.5em;
+    border-width: 1px;
+    border-color: #ffe #aaab9c #ccc #fff;
+    border-style: solid;
+    color: #777;
+    text-decoration: none;
+    background: #f7f2ea;
+}
+
+#bitdiv>ul#bitlist li a { 
+    width: auto; 
+}
+
+ul#bitlist li#active a {
+    background: #f0e7d7;
+    color: #800000;
+}
+
+ul#bitlist li a:hover, ul#bitlist li#active a:hover {
+    color: #800000;
+    background: transparent;
+    border-color: #aaab9c #fff #fff #ccc;
+}
+*/
+
+
+#buttons {
+    height: 4em;
+    clear: both;
+    padding-top: 2em;
+
+}
+
+#buttons ul {
+    list-style: none;
+}
+
+#buttons li {
+    float: left;
+    display: inline;   
+}
+
+button {
+    border:2px solid black;
+    padding:10px 10px; 
+    margin: 0 5px;
+    background: #ffc573;
+    border-radius:25px;
+    font-size: 1.2em;
+}
+
+
+
+
+#rules {
+    border: solid 2px  #a7cae9;
+    width: 50%;
+    background-color: #a7cae9;
+}
+ 
+#ruletable {
+    clear:left;
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 1.2em;
+    border-collapse:collapse;
+}
+
+#ruletable tr:nth-child(odd) {
+    background-color: #a7cae9;
+}
+#ruletable tr:nth-child(even) {
+    background-color: white;
+}
+
+#ruletable td {
+    padding: 5px; 
+    border: 0;
+}
+
+#ruletable td select {
+    font-size: 1em;
+}
+
+
+
+#creatures {
+    clear: left;
+}
+
+#guesstext {
+    font-size: 1.5em;
+    font-family: Arial, Helvetica, sans-serif; 
+}
