@@ -16,3 +16,5 @@ A typical use of this game in a classroom would be as follows:
 
 
 Aims for development of the game in future include the introduction of more complication such as AND, OR, and n-ary combinations of genes (epistasis, dominance, etc).
+
+This game is released under the MIT License.
