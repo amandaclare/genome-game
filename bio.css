@@ -21,7 +21,6 @@ ul {
     width: 65%;
     font-family: Arial, Helvetica, sans-serif; 
     float: left;
-    margin-top: 2em;
 }
 
 
@@ -64,70 +63,9 @@ ul#bitlist li a:hover, ul#bitlist li#active a:hover {
     border-color: #aaab9c #fff #fff #ccc;
 }
 
-
-/*
 #bitdiv {
-    margin: 10px;
-    padding: 0;
-
+    margin-top: 2em;
 }
-
- to stretch the container div to contain floated list 
-
-
-#bitdiv:after {
-    content: ".";
-    display: block;
-    line-height: 1px;
-    font-size: 1px;
-    clear: both;
-}
-
-
-ul#bitlist {
-    list-style: none;
-    padding: 0;
-    margin: 0 auto;
-    width: 100%;
-    font-size: 4em;
-}
-
-
-ul#bitlist li {
-    display: block;
-    float: left;
-    width: 25%;
-    margin: 0;
-    padding: 0;
-}
-
-ul#bitlist li a {
-    display: block;
-    width: 100%;
-    padding: 0.5em;
-    border-width: 1px;
-    border-color: #ffe #aaab9c #ccc #fff;
-    border-style: solid;
-    color: #777;
-    text-decoration: none;
-    background: #f7f2ea;
-}
-
-#bitdiv>ul#bitlist li a { 
-    width: auto; 
-}
-
-ul#bitlist li#active a {
-    background: #f0e7d7;
-    color: #800000;
-}
-
-ul#bitlist li a:hover, ul#bitlist li#active a:hover {
-    color: #800000;
-    background: transparent;
-    border-color: #aaab9c #fff #fff #ccc;
-}
-*/
 
 
 #buttons {
@@ -188,6 +126,28 @@ button {
 }
 
 
+#guessruletable {
+    float:left;
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 1.2em;
+    border-collapse:collapse;
+}
+#guessruletable td {
+    padding: 5px; 
+    border: 0;
+}
+
+#guessruletable td select {
+    font-size: 1em;
+}
+
+#guessruletable tr:nth-child(odd) {
+    background-color: #FD4C4C;
+}
+#guessruletable tr:nth-child(even) {
+    background-color: #FA8181;
+}
+
 
 #creatures {
     clear: left;
@@ -196,4 +156,34 @@ button {
 #guesstext {
     font-size: 1.5em;
     font-family: Arial, Helvetica, sans-serif; 
+}
+
+#countdown {
+    float: left;
+    font-size: 1.5em;
+    font-family: Arial, Helvetica, sans-serif; 
+}
+
+#countdownText {
+    font-size: 2em;
+    font-family: Arial, Helvetica, sans-serif; 
+}
+
+#hiscore { 
+    float: right;
+}
+
+#clearscores {
+    clear:both;
+    padding-top: 1em;
+}
+
+#clearscoresbutton {
+    border:1px solid black;
+    padding:0; 
+    margin: 0;
+
+    background: #ffc573;
+    border-radius:25px;
+    font-size: 1em;
 }

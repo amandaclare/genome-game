@@ -14,7 +14,6 @@
 
 
 
-
 <div id="bitsandbuttons">
   
 <div id="bitdiv">
@@ -37,9 +36,17 @@
    <button id="makepopbutton" type="button">Make population</button>
   </div></li>
 
-  <li><div id="makepop">
-    <button id="hidepopbutton" type="button">Hide population</button>
-  </div></li>
+  <li><div id="hidepop">
+   <button id="hidepopbutton" type="button">Hide population</button>
+ </div></li>
+
+  <li><div id="newgame">
+<button id="newgamebutton" type="button">New game</button>
+</div></li>
+
+  <li><div id="showcreature">
+ <button id="showcreaturebutton" type="button">Hide creature</button>
+</div></li>
   </ul>
 </div>
 
@@ -49,6 +56,9 @@
 <div id="creature">
 <canvas id="creaturecanv" width="400" height="300"></canvas>
 </div>
+
+<div id="hiscore"></div>
+
 
 <div id="rules">
   <table id="ruletable">
@@ -174,9 +184,159 @@
 </table>
 </div>
 
+
 <div id="creatures">
   <p id="guesstext">Guess the rules that made this population:</p>
-  <canvas id="creaturescanv" width="800" height="400"></canvas>
+  <canvas id="creaturescanv" width="800" height="340"></canvas>
+</div>
+
+<div id="guessrules">
+  <table id="guessruletable">
+
+    <tr id="rule1"><td rowspan="2">if gene</td>
+     <td class="gene" rowspan="2">1</td>
+     <td rowspan="2"> is </td> 
+     <td class="bitvalue">0</td>
+     <td>then the creature has</td>
+     <td><select class="allele">
+       <option value="" selected="selected"></option>
+       <option value="blue">blue</option>
+       <option value="yellow">yellow</option>
+       <option value="pink">pink</option>
+       <option value="red">red</option>
+   </select></td>
+     <td rowspan="2"><select class="pheno" >
+       <option value="" selected="selected"></option>
+       <option value="legs">legs</option>
+       <option value="eyes">eyes</option>
+       <option value="head">head</option>
+       <option value="body">body</option>
+     </select></td>
+   </tr>
+    <tr>
+     <td class="bitvalue">1</td>
+     <td>then the creature has</td>
+     <td><select class="allele">
+       <option value="" selected="selected"></option>
+       <option value="blue">blue</option>
+       <option value="yellow">yellow</option>
+       <option value="pink">pink</option>
+       <option value="red">red</option>
+    </select></td>
+  </tr>
+
+  
+    <tr id="rule2"><td rowspan="2">if gene</td>
+     <td class="gene" rowspan="2">2</td>
+     <td rowspan="2"> is </td> 
+     <td class="bitvalue">0</td>
+     <td>then the creature has</td>
+     <td><select class="allele">
+       <option value="" selected="selected"></option>
+       <option value="blue">blue</option>
+       <option value="yellow">yellow</option>
+       <option value="pink">pink</option>
+       <option value="red">red</option>
+     </select></td>
+     <td rowspan="2"><select class="pheno">
+       <option value="" selected="selected"></option>
+       <option value="legs">legs</option>
+       <option value="eyes">eyes</option>
+       <option value="head">head</option>
+       <option value="body">body</option>
+     </select></td>
+   </tr>
+    <tr>
+     <td class="bitvalue">1</td>
+     <td>then the creature has</td>
+     <td><select class="allele">
+       <option value="" selected="selected"></option>
+       <option value="blue">blue</option>
+       <option value="yellow">yellow</option>
+       <option value="pink">pink</option>
+       <option value="red">red</option>
+     </select></td>
+   </tr>
+
+
+   <tr id="rule3"><td rowspan="2">if gene</td>
+     <td class="gene" rowspan="2">3</td>
+     <td rowspan="2"> is </td> 
+     <td class="bitvalue">0</td>
+     <td>then the creature has</td>
+     <td><select class="allele">
+       <option value="" selected="selected"></option>
+       <option value="blue">blue</option>
+       <option value="yellow">yellow</option>
+       <option value="pink">pink</option>
+       <option value="red">red</option>
+     </select></td>
+     <td rowspan="2"><select  class="pheno">
+       <option value="" selected="selected"></option>
+       <option value="legs">legs</option>
+       <option value="eyes">eyes</option>
+       <option value="head">head</option>
+       <option value="body">body</option>
+     </select></td>
+   </tr>
+    <tr>
+     <td class="bitvalue">1</td>
+     <td>then the creature has</td>
+     <td><select class="allele">
+       <option value="" selected="selected"></option>
+       <option value="blue">blue</option>
+       <option value="yellow">yellow</option>
+       <option value="pink">pink</option>
+       <option value="red">red</option>
+     </select></td>
+   </tr>
+
+
+   <tr id="rule4"><td rowspan="2">if gene</td>
+     <td class="gene" rowspan="2">4</td>
+     <td rowspan="2"> is </td> 
+     <td class="bitvalue">0</td>
+     <td>then the creature has</td>
+     <td><select class="allele">
+       <option value="" selected="selected"></option>
+       <option value="blue">blue</option>
+       <option value="yellow">yellow</option>
+       <option value="pink">pink</option>
+       <option value="red">red</option>
+     </select></td>
+     <td rowspan="2"><select class="pheno">
+       <option value="" selected="selected"></option>
+       <option value="legs">legs</option>
+       <option value="eyes">eyes</option>
+       <option value="head">head</option>
+       <option value="body">body</option>
+     </select></td>
+   </tr>
+    <tr>
+     <td class="bitvalue">1</td>
+     <td>then the creature has</td>
+     <td><select class="allele">
+       <option value="" selected="selected"></option>
+       <option value="blue">blue</option>
+       <option value="yellow">yellow</option>
+       <option value="pink">pink</option>
+       <option value="red">red</option>
+     </select></td>
+  </tr>
+
+
+</table>
+</div>
+
+<div id="countdown">
+<p>&nbsp;&nbsp;<span id="countdownText">??</span> seconds left!</p>
+</div>
+
+
+
+<div id="clearscores">
+<hr />
+<button id="clearscoresbutton" type="button">Clear Hi Score Table</button>
 </div>
 
 </body>

@@ -1,3 +1,11 @@
+var colours = ["yellow", "red","blue","pink"];
+var numbers = ["2","4","6"];
+var maxcreatures = 5;
+var numbits = 4;
+var gametime = 20; // in seconds
+var timerId;
+
+
 $(document).ready( function() {
     $('.bit').bind('click', function() {
 	updateBit($(this));
@@ -6,25 +14,46 @@ $(document).ready( function() {
 	toggleRules($(this));
     });
     $('#makepopbutton').bind('click', function() {
-	makePop($(this));
+	makePop();
     });
     $('#hidepopbutton').bind('click', function() {
 	hidePop($(this));
     });
+    $('#newgamebutton').bind('click', function() {
+	initialiseGame();
+    });
+    $('#showcreaturebutton').bind('click', function() {
+	toggleCreature($(this));
+    });
     $('.pheno').bind('change', function() {
 	phenoChange($(this));
     });
+    $('#guessrules .allele').bind('change', function() {
+	geneCheck($(this));
+    });
+
+    $('#clearscoresbutton').bind('click', function() {
+	clearTable();
+    });
+
     $('#rules').hide();
+    $('#guessrules').hide();
     $('#creatures').hide();
+    $('#showcreaturebutton').hide();
+    $('#clearscores').hide();
+    $('#countdown').hide();
+
+    //$('#makepop').hide();    
+    //$('#hidepop').hide();    
+
 
     drawCanv();
+    printTable();
 });
 
 
-var colours = ["yellow", "red","blue","pink"];
-var numbers = ["2","4","6"];
-var maxcreatures = 5;
-var numbits = 4;
+// --------------------------------------------------------------------
+// Rendering
 
 function drawCanv() {
     var canv = document.getElementById('creaturecanv');
@@ -119,7 +148,7 @@ function drawCreature(ctx, offset) {
 	bodyColour : bc,
 	eyeColour : ec,
     }
-    $(".pheno option").filter(":selected").each(function (index) {
+    $("#rules .pheno option").filter(":selected").each(function (index) {
 	var currentrow = $(this).closest('tr');
 	var nextrow    = $(currentrow).next();
 	var gene       = parseInt($(currentrow).find('td.gene').html()) - 1;
@@ -155,6 +184,9 @@ function drawCreature(ctx, offset) {
 }
 
 
+// -----------------------------------------------------------------
+// Showing, hiding and toggling items
+
 function toggleBit(e) {
     if (e.text() == "0") { e.text(1); }
     else { e.text(0); }
@@ -180,7 +212,99 @@ function toggleRules(e) {
     }
 }
 
+function toggleCreature(e) {
+    if(e.text() == "Show creature") {
+	e.text("Hide creature");
+	$('#creature').show(); 
+	$('#bitdiv').show(); 
+    } else {
+	hideCreature();
+    }
+}
 
+function hideCreature(e) {
+    $('#showcreaturebutton').text("Show creature");
+    $('#creature').hide(); 
+    $('#bitdiv').hide(); 
+}
+
+function hidePop() {
+    $('#creatures').hide(); 
+}
+
+
+// -----------------------------------------------------------------
+// Checking if guesses are correct
+
+// Check this gene is correct
+function geneCheck(e) {
+    var currentrow = e.closest('tr');
+    var otherrow;
+    var genenum;
+    var geneelems = currentrow.find("td.gene");
+    if(geneelems.length === 0) {
+	otherrow = currentrow.prev();
+	genenum = otherrow.find("td.gene").text();
+	pheno = otherrow.find(".pheno").val();
+    } else {
+	otherrow = currentrow.next();
+	genenum = geneelems.text();
+	pheno = currentrow.find(".pheno").val();
+    }
+    var gameOver = checkRowAndEnd(currentrow, genenum, pheno);
+    if(!gameOver) { checkRowAndEnd(otherrow, genenum, pheno); }
+}
+
+
+// See if this tuple of values is the right answer
+function isCorrect(geneNumber, alleleNum, guessSetting, guessPheno) {
+    var realGene = $("#ruletable .gene:contains("+geneNumber+")")
+    var currentRow = realGene.closest('tr');
+    realPheno = currentRow.find(".pheno").val();
+    if(realPheno != guessPheno) {
+	return false;
+    }
+    if(alleleNum === "1") {
+	currentRow = currentRow.next();
+    }
+    realSetting = currentRow.find(".allele").val();
+    if(realSetting != guessSetting) {
+	return false;
+    } else {
+	return true;
+    }
+}
+
+
+// See if this row is a correct guess and also return whether this row makes it "game over"
+function checkRowAndEnd(e, geneNumber, pheno) {
+    var alleleNum = e.find("td.bitvalue").text();
+    var setting   = e.find("select.allele").val();
+    var correct = isCorrect(geneNumber, alleleNum, setting, pheno);
+    if(correct) {
+	e.css("background-color","#08DA08");
+    } else {
+	if(alleleNum === "0") {
+	    e.css("background-color","FD4C4C");
+	}else {
+	    e.css("background-color","FA8181");
+	}
+    }
+    // Are they all green now? If so, we stop.
+    var rows = $("#guessrules tr");
+    var correctrows = rows.filter(function () { return $(this).css('background-color') == "rgb(8, 218, 8)"; });
+    var numcorrect = correctrows.length;
+    if(numcorrect === 8) { 
+	endOfGame();
+	return true;
+    } else {
+	return false;
+    }
+}
+
+// ----------------------------------------------------------------
+
+// Function to update the choices when someone has changed a phenotype select
 function phenoChange(e) {
     var s = e.find("option:selected");
     var currentrow = e.closest('tr');
@@ -192,9 +316,65 @@ function phenoChange(e) {
 	/* set the other drop downs so only numbers can be chosen */
 	a1.find('option').remove() ;
 	a2.find('option').remove() ;
-        var options = '' ;
+        var options = '<option selected value=""></option>' ;
         for (var i = 0; i < numbers.length; i++) {
-            if (i==0) {
+            options += '<option value="' + numbers[i] + '">' + numbers[i] + '</option>';
+        }
+        a1.html(options);
+        options = '<option selected value=""></option>' ;
+        for (var i = 0; i < numbers.length; i++) {
+            options += '<option value="' + numbers[i] + '">' + numbers[i] + '</option>';
+        }
+        a2.html(options);
+    }
+    else { 
+	/* set the other drop downs so only colours can be chosen */
+	a1.find('option').remove() ;
+	a2.find('option').remove() ;
+	var options = '<option selected value=""></option>' ;
+        for (var i = 0; i < colours.length; i++) {
+            options += '<option value="' + colours[i] + '">' + colours[i] + '</option>';
+	}
+        a1.html(options);
+        options = '<option selected value=""></option>' ;
+        for (var i = 0; i < colours.length; i++) {
+            options += '<option value="' + colours[i] + '">' + colours[i] + '</option>';
+        }
+        a2.html(options);
+    }
+
+}
+
+
+function randomiseRules() {
+    var bodyparts = ["legs","body","head","eyes"]; 
+    bodyparts = shuffle(bodyparts);
+    $("#ruletable .pheno").each(function(index) {
+	$(this).val(bodyparts[index]);
+	phenoRandomChange($(this));
+   });
+}
+
+function phenoRandomChange(e) {
+    var s = e.find("option:selected");
+    var currentrow = e.closest('tr');
+    var nextrow    = currentrow.next();
+    var a1 = currentrow.find('select.allele');
+    var a2 = nextrow.find('select.allele');
+    if(s.text() == "legs")
+    {
+	/* set the other drop downs so only numbers can be chosen */
+	a1.find('option').remove() ;
+	a2.find('option').remove() ;
+        var options = '' ;
+	/* choices is an array which is used to randomly pick 2 elements to set as selected for allele 0 and 1 */
+	var choices = new Array(numbers.length);
+	for(var i = 0; i < numbers.length; i++) {
+	    choices[i] = i;
+	}
+	choices = shuffle(choices);
+        for (var i = 0; i < numbers.length; i++) {
+            if (i==choices[0]) {
                 options += '<option selected value="' + numbers[i] + '">' + numbers[i] + '</option>';
             }
             else {
@@ -202,9 +382,9 @@ function phenoChange(e) {
             }
         }
         a1.html(options);
-        var options = '' ;
+        options = '' ;
         for (var i = 0; i < numbers.length; i++) {
-            if (i==1) {
+            if (i==choices[1]) {
                 options += '<option selected value="' + numbers[i] + '">' + numbers[i] + '</option>';
             }
             else {
@@ -217,9 +397,15 @@ function phenoChange(e) {
 	/* set the other drop downs so only colours can be chosen */
 	a1.find('option').remove() ;
 	a2.find('option').remove() ;
+	/* choices is an array which is used to randomly pick 2 elements to set as selected for allele 0 and 1 */
+	var choices = new Array(colours.length);
+	for(var i = 0; i < colours.length; i++) {
+	    choices[i] = i;
+	}
+	choices = shuffle(choices);
         var options = '' ;
         for (var i = 0; i < colours.length; i++) {
-            if (i==0) {
+            if (i==choices[0]) {
                 options += '<option selected value="' + colours[i] + '">' + colours[i] + '</option>';
             }
             else {
@@ -229,7 +415,7 @@ function phenoChange(e) {
         a1.html(options);
         options = '' ;
         for (var i = 0; i < colours.length; i++) {
-            if (i==1) {
+            if (i==choices[1]) {
                 options += '<option selected value="' + colours[i] + '">' + colours[i] + '</option>';
             }
             else {
@@ -240,6 +426,8 @@ function phenoChange(e) {
     }
 
 }
+
+// ----------------------------------------------------------------
 
 function setBits(arr) {
     var bitlist = $('#bitlist');
@@ -260,9 +448,6 @@ function displayGenome(ctx, arr, offset) {
     ctx.fillText(genome, offset+70, 320);   
 }
 
-function hidePop() {
-    $('#creatures').hide(); 
-}
 
 function makePop() {
     $('#showrulesbutton').text("Show rules");
@@ -290,4 +475,131 @@ function makePop() {
     ctx = canv.getContext("2d");
     ctx.clearRect(0,0,400,400);
     drawCreature(ctx,0);    
+}
+
+
+// -------------------------------------------------------------------------
+
+// General array shuffle
+function shuffle(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
+// -------------------------------------------------------------------------------
+
+function initialiseGame() {
+    $('#rules').hide();
+    hideCreature();
+    $('#bitsandbuttons').hide();
+    $('#makepop').hide();
+    $('#hidepop').hide();    
+
+    randomiseRules();
+    makePop();
+    
+    $("#guessruletable .pheno").each(function(index) {
+	$(this).val("");
+    });
+
+    $("#guessruletable .allele").each(function(index) {
+	$(this).val("");
+    });
+    
+    $('#guessruletable .pheno').prop('disabled', false);
+    $('#guessruletable .allele').prop('disabled', false); // false
+
+    // Set colours of guesstable back to red
+    $('#guessruletable tr:nth-child(odd)').css('background-color','#FD4C4C');
+    $('#guessruletable tr:nth-child(even)').css('background-color','#FA8181');
+
+    $('#guessrules').show();
+    $('#countdown').show();
+    $('#clearscores').show();
+
+    var tick = gametime;
+    clearInterval(timerId);
+    timerId = setInterval(function () {
+	$("#countdownText").text(tick);
+	if(tick === 0) {
+	    endOfGame();
+	} else {
+	    tick--;
+	}
+    }, 1000);
+    
+}
+
+
+/* Time is up, did they win or not? */
+function endOfGame() {
+    clearInterval(timerId);
+    $('#guessruletable .pheno').prop('disabled', 'disabled');
+    $('#guessruletable .allele').prop('disabled', 'disabled'); // false
+    $('#bitsandbuttons').show();
+    $('#hidepop').hide(); 
+    console.log('about to show');
+    $('#makepop').show(); 
+    console.log('shown');
+    var score = $("#countdownText").text();
+    if(score>0) {
+	var yrname=prompt("You scored "+score+"! To go in the high score table enter your name.");
+        addToTable(yrname,score);
+	printTable();
+	$("html, body").animate({ scrollTop: 0 }, "slow");
+    } else {
+	alert("Out of time!");
+	$("html, body").animate({ scrollTop: 0 }, "slow");
+    }
+}
+
+// -----------------------------------------------------------------------------------------
+// High score table code taken from Hannah's Pythagoras game.
+
+function printTable() {
+     if (window.localStorage["saved"]=="true")  {
+            var total_in=parseInt(window.localStorage["number_stored"]);
+            var currname= [];
+            var i;
+            for (i=0;i<total_in; i++) {
+                 currname.push({'myname':window.localStorage["hiscore."+i+".myname"],'myscore':parseFloat(window.localStorage["hiscore."+i+".myscore"])});
+	    }
+            currname.sort(function(a,b) { return(a.myscore<b.myscore)? -1: ((a.myscore==b.myscore) ? 0:1)});
+            var hiscore_string="<h2>High Scores</h2><ol>";
+            for (i=0;i<total_in; i++) {
+		    hiscore_string=hiscore_string+"<li>"+currname[i].myscore+" "+currname[i].myname+"</li>"; 
+	    }
+            hiscore_string=hiscore_string+"</ol>";
+            document.getElementById("hiscore").innerHTML=hiscore_string;
+     } else {
+	 document.getElementById("hiscore").innerHTML="";
+     }
+}
+
+      
+function addToTable(myname,myscore) {
+     if (window.localStorage["saved"]=="true")  {
+	     total_in=parseInt(window.localStorage["number_stored"]);
+     }  else { //it's the first time
+         window.localStorage["saved"]="true";
+         total_in=0;
+     } 
+     window.localStorage["hiscore."+total_in+".myname"]=myname;
+     window.localStorage["hiscore."+total_in+".myscore"]=myscore;
+
+     window.localStorage["number_stored"]=total_in+1;
+}
+
+function clearTable() {
+    console.log("clearing scores");
+    if (window.localStorage["saved"]=="true")  {
+        window.localStorage.clear();
+    }
+    window.localStorage["saved"]=="false"; 
+    printTable();
 }
