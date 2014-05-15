@@ -2,7 +2,7 @@ var colours = ["yellow", "red","blue","pink"];
 var numbers = ["2","4","6"];
 var maxcreatures = 5;
 var numbits = 4;
-var gametime = 20; // in seconds
+var gametime = 120; // in seconds
 var timerId;
 
 
