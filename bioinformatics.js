@@ -4,9 +4,17 @@ var maxcreatures = 5;
 var numbits = 4;
 var gametime = 120; // in seconds
 var timerId;
+var lang = "en_GB";
+
+
 
 
 $(document).ready( function() {
+    setLanguageStrings();
+
+    $('#langswitchbutton').bind('click', function() {
+	switchLang($(this));
+    });
     $('.bit').bind('click', function() {
 	updateBit($(this));
     });
@@ -152,21 +160,21 @@ function drawCreature(ctx, offset) {
 	var currentrow = $(this).closest('tr');
 	var nextrow    = $(currentrow).next();
 	var gene       = parseInt($(currentrow).find('td.gene').html()) - 1;
-	var zeroAllele = $(currentrow).find('select.allele option').filter(':selected').text();
-	var oneAllele  = $(nextrow).find('select.allele option').filter(':selected').text();
-	if($(this).text() == "legs") {
+	var zeroAllele = $(currentrow).find('select.allele option').filter(':selected').val();
+	var oneAllele  = $(nextrow).find('select.allele option').filter(':selected').val();
+	if($(this).val() == "legs") {
 	    if($('.bit').eq(gene).text() == "1") {
 		creature.legsNum = oneAllele
 	    } else {
 		creature.legsNum = zeroAllele;
 	    }
-	} else if ($(this).text() == "head") {
+	} else if ($(this).val() == "head") {
 	    if($('.bit').eq(gene).text() == "1") {
 		creature.headColour = oneAllele;
 	    } else {
 		creature.headColour = zeroAllele;
 	    }
-	} else if ($(this).text() == "body") {
+	} else if ($(this).val() == "body") {
 	    if($('.bit').eq(gene).text() == "1") {
 		creature.bodyColour = oneAllele;
 	    } else {
@@ -188,7 +196,7 @@ function drawCreature(ctx, offset) {
 // Showing, hiding and toggling items
 
 function toggleBit(e) {
-    if (e.text() == "0") { e.text(1); }
+    if (e.text() === "0") { e.text(1); }
     else { e.text(0); }
 }
 
@@ -203,17 +211,17 @@ function updateBit(e) {
 
 
 function toggleRules(e) {
-    if(e.text() == "Show rules") { 
-	e.text("Hide rules");
-	$('#rules').show(); //css({visibility: "visible"});
+    if(e.text() === translate[lang]["Show rules"]) { 
+	e.text(translate[lang]["Hide rules"]);
+	$('#rules').show(); 
     } else {
-	e.text("Show rules");
-	$('#rules').hide(); //css({visibility :"hidden"});
+	e.text(translate[lang]["Show rules"]);
+	$('#rules').hide(); 
     }
 }
 
 function toggleCreature(e) {
-    if(e.text() == "Show creature") {
+    if(e.text() === "Show creature") {
 	e.text("Hide creature");
 	$('#creature').show(); 
 	$('#bitdiv').show(); 
@@ -311,7 +319,7 @@ function phenoChange(e) {
     var nextrow    = currentrow.next();
     var a1 = currentrow.find('select.allele');
     var a2 = nextrow.find('select.allele');
-    if(s.text() == "legs")
+    if(s.val() === "legs")
     {
 	/* set the other drop downs so only numbers can be chosen */
 	a1.find('option').remove() ;
@@ -333,12 +341,12 @@ function phenoChange(e) {
 	a2.find('option').remove() ;
 	var options = '<option selected value=""></option>' ;
         for (var i = 0; i < colours.length; i++) {
-            options += '<option value="' + colours[i] + '">' + colours[i] + '</option>';
+            options += '<option value="' + colours[i] + '">' + translate[lang][colours[i]] + '</option>';
 	}
         a1.html(options);
         options = '<option selected value=""></option>' ;
         for (var i = 0; i < colours.length; i++) {
-            options += '<option value="' + colours[i] + '">' + colours[i] + '</option>';
+            options += '<option value="' + colours[i] + '">' + translate[lang][colours[i]] + '</option>';
         }
         a2.html(options);
     }
@@ -361,7 +369,7 @@ function phenoRandomChange(e) {
     var nextrow    = currentrow.next();
     var a1 = currentrow.find('select.allele');
     var a2 = nextrow.find('select.allele');
-    if(s.text() == "legs")
+    if(s.val() === "legs")
     {
 	/* set the other drop downs so only numbers can be chosen */
 	a1.find('option').remove() ;
@@ -406,20 +414,20 @@ function phenoRandomChange(e) {
         var options = '' ;
         for (var i = 0; i < colours.length; i++) {
             if (i==choices[0]) {
-                options += '<option selected value="' + colours[i] + '">' + colours[i] + '</option>';
+                options += '<option selected value="' + colours[i] + '">' + translate[lang][colours[i]] + '</option>';
             }
             else {
-                options += '<option value="' + colours[i] + '">' + colours[i] + '</option>';
+                options += '<option value="' + colours[i] + '">' + translate[lang][colours[i]] + '</option>';
             }
         }
         a1.html(options);
         options = '' ;
         for (var i = 0; i < colours.length; i++) {
             if (i==choices[1]) {
-                options += '<option selected value="' + colours[i] + '">' + colours[i] + '</option>';
+                options += '<option selected value="' + colours[i] + '">' + translate[lang][colours[i]] + '</option>';
             }
             else {
-                options += '<option value="' + colours[i] + '">' + colours[i] + '</option>';
+                options += '<option value="' + colours[i] + '">' + translate[lang][colours[i]] + '</option>';
             }
         }
         a2.html(options);
@@ -450,9 +458,9 @@ function displayGenome(ctx, arr, offset) {
 
 
 function makePop() {
-    $('#showrulesbutton').text("Show rules");
-    $('#rules').hide(); //css({visibility :"hidden"});
-    $('#creatures').show();  //.css({visibility :"visible"});
+    $('#showrulesbutton').text(translate[lang]["Show rules"]);
+    $('#rules').hide(); 
+    $('#creatures').show();  
     var canv = $('#creaturescanv')[0];
     var ctx = canv.getContext("2d");
     ctx.clearRect(0,0,800,400);
@@ -543,17 +551,15 @@ function endOfGame() {
     $('#guessruletable .allele').prop('disabled', 'disabled'); // false
     $('#bitsandbuttons').show();
     $('#hidepop').hide(); 
-    console.log('about to show');
     $('#makepop').show(); 
-    console.log('shown');
     var score = $("#countdownText").text();
     if(score>0) {
-	var yrname=prompt("You scored "+score+"! To go in the high score table enter your name.");
+	var yrname=prompt(translate[lang]["You scored"]+score+translate[lang]["Enter name"]);
         addToTable(yrname,score);
 	printTable();
 	$("html, body").animate({ scrollTop: 0 }, "slow");
     } else {
-	alert("Out of time!");
+	alert(translate[lang]["Out of time"]);
 	$("html, body").animate({ scrollTop: 0 }, "slow");
     }
 }
@@ -570,7 +576,7 @@ function printTable() {
                  currname.push({'myname':window.localStorage["hiscore."+i+".myname"],'myscore':parseFloat(window.localStorage["hiscore."+i+".myscore"])});
 	    }
             currname.sort(function(a,b) { return(a.myscore<b.myscore)? -1: ((a.myscore==b.myscore) ? 0:1)});
-            var hiscore_string="<h2>High Scores</h2><ol>";
+            var hiscore_string="<h2>"+translate[lang]["High Scores"]+"</h2><ol>";
             for (i=0;i<total_in; i++) {
 		    hiscore_string=hiscore_string+"<li>"+currname[i].myscore+" "+currname[i].myname+"</li>"; 
 	    }
@@ -596,10 +602,40 @@ function addToTable(myname,myscore) {
 }
 
 function clearTable() {
-    console.log("clearing scores");
     if (window.localStorage["saved"]=="true")  {
         window.localStorage.clear();
     }
     window.localStorage["saved"]=="false"; 
     printTable();
+}
+
+
+function setLanguageStrings() {
+    $("#title").text(translate[lang]["title"]);
+    $("#showrulesbutton").text(translate[lang]["Show rules"]);
+    $("#makepopbutton").text(translate[lang]["Make population"]);
+    $("#hidepopbutton").text(translate[lang]["Hide population"]);
+    $("#newgamebutton").text(translate[lang]["New game"]);
+    $('#clearscoresbutton').text(translate[lang]["Clear scores"]);
+    $('#guesstext').text(translate[lang]["Guess"])
+    $('.if').text(translate[lang]["if gene"]);
+    $('.then').text(translate[lang]["then"]);
+    $('.is').text(translate[lang]["is"]);
+    $('#seconds').text(translate[lang]["seconds left"]);
+    $('.pheno option').each( function() { $(this).text(translate[lang][$(this).val()]); });
+    $('.allele option').each( function() {  $(this).text(translate[lang][$(this).val()]); });
+}
+
+function switchLang(e) {
+    if(e.text() === "Cymraeg") {
+	e.text("English");
+	lang = "cy";
+	setLanguageStrings();
+	printTable(); // also need to redo high score table
+    } else {
+	e.text("Cymraeg");
+	lang = "en_GB";
+	setLanguageStrings();
+	printTable(); // also need to redo high score table
+    }
 }

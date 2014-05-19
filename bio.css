@@ -94,7 +94,9 @@ button {
 }
 
 
-
+#langswitch {
+    float: right;
+}
 
 #rules {
     /* width: 50%; */

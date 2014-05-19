@@ -4,14 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
 <title>Bioinformatics</title>
 <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="translate.js"></script>
 <script type="text/javascript" src="bioinformatics.js"></script>
 <link href="bio.css" rel="stylesheet">
 </head>
 
 <body>
-<h1>Discover what my genes do!</h1>
+<div id="langswitch">
+<button id="langswitchbutton" type="button">Cymraeg</button>
+</div>
 
 
+<h1 id="title">Discover what my genes do!</h1>
 
 
 <div id="bitsandbuttons">
@@ -63,11 +67,11 @@
 <div id="rules">
   <table id="ruletable">
 
-    <tr id="rule1"><td rowspan="2">if gene</td>
+    <tr id="rule1"><td class="if" rowspan="2">if gene</td>
      <td class="gene" rowspan="2">1</td>
-     <td rowspan="2"> is </td> 
+     <td class="is" rowspan="2"> is </td> 
      <td class="bitvalue">0</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="2">2</option>
        <option value="4" selected="selected">4</option>
@@ -82,7 +86,7 @@
    </tr>
     <tr>
      <td class="bitvalue">1</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="2" selected="selected">2</option>
        <option value="4">4</option>
@@ -91,11 +95,11 @@
   </tr>
 
   
-    <tr id="rule2"><td rowspan="2">if gene</td>
+    <tr id="rule2"><td class="if" rowspan="2">if gene</td>
      <td class="gene" rowspan="2">2</td>
-     <td rowspan="2"> is </td> 
+     <td class="is" rowspan="2"> is </td> 
      <td class="bitvalue">0</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="blue">blue</option>
        <option value="yellow">yellow</option>
@@ -111,7 +115,7 @@
    </tr>
     <tr>
      <td class="bitvalue">1</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="blue">blue</option>
        <option value="yellow">yellow</option>
@@ -121,11 +125,11 @@
    </tr>
 
 
-   <tr id="rule3"><td rowspan="2">if gene</td>
+   <tr id="rule3"><td class="if" rowspan="2">if gene</td>
      <td class="gene" rowspan="2">3</td>
-     <td rowspan="2"> is </td> 
+     <td class="is" rowspan="2"> is </td> 
      <td class="bitvalue">0</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="blue">blue</option>
        <option value="yellow" selected="selected">yellow</option>
@@ -141,7 +145,7 @@
    </tr>
     <tr>
      <td class="bitvalue">1</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="blue">blue</option>
        <option value="yellow">yellow</option>
@@ -151,11 +155,11 @@
    </tr>
 
 
-   <tr id="rule4"><td rowspan="2">if gene</td>
+   <tr id="rule4"><td class="if" rowspan="2">if gene</td>
      <td class="gene" rowspan="2">4</td>
-     <td rowspan="2"> is </td> 
+     <td class="is" rowspan="2"> is </td> 
      <td class="bitvalue">0</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="blue">blue</option>
        <option value="yellow" selected="selected">yellow</option>
@@ -171,7 +175,7 @@
    </tr>
     <tr>
      <td class="bitvalue">1</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="blue" selected="selected">blue</option>
        <option value="yellow">yellow</option>
@@ -193,11 +197,11 @@
 <div id="guessrules">
   <table id="guessruletable">
 
-    <tr id="rule1"><td rowspan="2">if gene</td>
+    <tr id="rule1"><td class="if" rowspan="2">if gene</td>
      <td class="gene" rowspan="2">1</td>
-     <td rowspan="2"> is </td> 
+     <td class="is" rowspan="2"> is </td> 
      <td class="bitvalue">0</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="" selected="selected"></option>
        <option value="blue">blue</option>
@@ -215,7 +219,7 @@
    </tr>
     <tr>
      <td class="bitvalue">1</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="" selected="selected"></option>
        <option value="blue">blue</option>
@@ -226,11 +230,11 @@
   </tr>
 
   
-    <tr id="rule2"><td rowspan="2">if gene</td>
+    <tr id="rule2"><td class="if" rowspan="2">if gene</td>
      <td class="gene" rowspan="2">2</td>
-     <td rowspan="2"> is </td> 
+     <td class="is" rowspan="2"> is </td> 
      <td class="bitvalue">0</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="" selected="selected"></option>
        <option value="blue">blue</option>
@@ -248,7 +252,7 @@
    </tr>
     <tr>
      <td class="bitvalue">1</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="" selected="selected"></option>
        <option value="blue">blue</option>
@@ -259,11 +263,11 @@
    </tr>
 
 
-   <tr id="rule3"><td rowspan="2">if gene</td>
+   <tr id="rule3"><td class="if" rowspan="2">if gene</td>
      <td class="gene" rowspan="2">3</td>
-     <td rowspan="2"> is </td> 
+     <td class="is" rowspan="2"> is </td> 
      <td class="bitvalue">0</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="" selected="selected"></option>
        <option value="blue">blue</option>
@@ -281,7 +285,7 @@
    </tr>
     <tr>
      <td class="bitvalue">1</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="" selected="selected"></option>
        <option value="blue">blue</option>
@@ -292,11 +296,11 @@
    </tr>
 
 
-   <tr id="rule4"><td rowspan="2">if gene</td>
+   <tr id="rule4"><td class="if" rowspan="2">if gene</td>
      <td class="gene" rowspan="2">4</td>
-     <td rowspan="2"> is </td> 
+     <td class="is" rowspan="2"> is </td> 
      <td class="bitvalue">0</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="" selected="selected"></option>
        <option value="blue">blue</option>
@@ -314,7 +318,7 @@
    </tr>
     <tr>
      <td class="bitvalue">1</td>
-     <td>then the creature has</td>
+     <td class="then">then the creature has</td>
      <td><select class="allele">
        <option value="" selected="selected"></option>
        <option value="blue">blue</option>
@@ -329,7 +333,7 @@
 </div>
 
 <div id="countdown">
-<p>&nbsp;&nbsp;<span id="countdownText">??</span> seconds left!</p>
+<p>&nbsp;&nbsp;<span id="countdownText">??</span> <span id="seconds">seconds left!</span></p>
 </div>
 
 
