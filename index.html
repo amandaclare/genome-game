@@ -13,7 +13,19 @@
 <div id="langswitch">
 <button id="langswitchbutton" type="button">Cymraeg</button>
 </div>
+<div id="help">
+<button id="helpbutton" type="button">Help</button>
+</div>
 
+<div id="helptextdiv">
+  <div id="helpheading">
+       <p id="helpheading">Help</p>
+  </div>
+  <div id="helpcontent">
+    <p id="helptext">Click on the blue 'genes' to see the effect of each gene on the creature. Make a population and see how their genomes correspond to the rules. Show the rules, change them and see what effect they now have. When you're ready, click 'Start game' to randomise the rules and start the countdown timer. Try to guess the rules by looking at the population of creatures and their genomes. When you guess correctly, the rows will turn green. If you guess all the rules before the timer runs out, you can get your name on the 'High Scores' table!</p>
+    <a href="#" id="closehelpbutton">Ok!</a>
+  </div>
+</div>
 
 <h1 id="title">Discover what my genes do!</h1>
 
@@ -44,11 +56,13 @@
    <button id="hidepopbutton" type="button">Hide population</button>
  </div></li>
 
-  <li><div id="newgame">
+ <li><div id="newgame">
 <button id="newgamebutton" type="button">New game</button>
 </div></li>
 
-  <li><div id="showcreature">
+
+
+<li><div id="showcreature">
  <button id="showcreaturebutton" type="button">Hide creature</button>
 </div></li>
   </ul>
@@ -336,7 +350,9 @@
 <p>&nbsp;&nbsp;<span id="countdownText">??</span> <span id="seconds">seconds left!</span></p>
 </div>
 
-
+<div id="quit">
+<button id="quitbutton" type="button">Quit</button>
+</div>
 
 <div id="clearscores">
 <hr />

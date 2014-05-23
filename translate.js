@@ -3,11 +3,11 @@ translate = {
     "en_GB": {
 	"title": "Discover what my genes do!",
 	"High Scores": "High scores",
-	"Show rules": "Show rules",
-	"Hide rules": "Hide rules",
+	"Show rules": "Show gene rules",
+	"Hide rules": "Hide gene rules",
 	"Make population": "Make population",
 	"Hide population": "Hide population",
-	"New game": "New game",
+	"New game": "Start game",
 	"if gene": "if gene",
 	"is": "is",
 	"then": "then creature has",
@@ -25,16 +25,19 @@ translate = {
 	"Clear scores": "Clear high score table",
 	"You scored": "You scored ",
 	"Enter name": "! To go in the high score table enter your name.", 
+	"helptext": "Click on the blue 'genes' to see the effect of each gene on the creature. Make a population and see how their genomes correspond to the rules. Show the rules, change them and see what effect they now have. When you're ready, click 'Start game' to randomise the rules and start the countdown timer. Try to guess the rules by looking at the population of creatures and their genomes. When you guess correctly, the rows will turn green. If you guess all the rules before the timer runs out, you can get your name on the 'High Scores' table!",
+	"quit": "Stop this game!",
+	"help": "Help",
 	"": ""
     },
     "cy": {
 	"title": "Dewch i ddarganfod beth mae fy ngenynnau yn ei wneud!",
 	"High Scores": "Sgorau uchel",
-	"Show rules": "Dangos rheolau",
-	"Hide rules": "Cuddion rheolau",
+	"Show rules": "Dangos rheolau genyn",
+	"Hide rules": "Cuddion rheolau genyn",
 	"Make population": "Creu poblogaeth",
 	"Hide population": "Cuddio poblogaeth",
-	"New game": "Gêm newydd", 
+	"New game": "Dechrau gêm", 
 	"if gene": "os yw genyn",
 	"is": "yn",
 	"then": "yna fydd greadur yn",
@@ -52,6 +55,9 @@ translate = {
 	"Clear scores": "Clir bwrdd sgorau uchel", 
 	"You scored": "Rydych chi wedi sgorio ",
 	"Enter name": "! I fynd yn y tabl sgorau uchel rhowch eich enw.",
+	"helptext": "Cliciwch ar y 'genynnau' glas i weld effaith pob genyn ar y creadur. Gwnewch boblogaeth i weld sut mae eu genomau yn cyfateb i'r rheolau. Dangoswch y rheolau, newidiwch nhw a sylwch eu heffaith yn awr. Pan fyddwch yn barod, cliciwch 'Dechrau gêm' i greu rheolau ar hap ac i ddechrau'r amserydd i gyfrif  lawr. Ceisiwch ddyfalu'r rheolau drwy edrych ar y boblogaeth o greaduriaid a'u genomau. Pan fyddwch yn dyfalu yn gywir, bydd y rhesi droi'n wyrdd. Os chi ddyfalu holl reolau cyn amser, gallwch gael eich enw ar y bwrdd 'Sgorau uchel'!",
+	"quit": "Stopiwch y gêm hon!",
+	"help": "Help",
 	"": ""
     }
 };

@@ -27,6 +27,9 @@ $(document).ready( function() {
     $('#hidepopbutton').bind('click', function() {
 	hidePop($(this));
     });
+    $('#helpbutton').bind('click', function() {
+	help();
+    });
     $('#newgamebutton').bind('click', function() {
 	initialiseGame();
     });
@@ -44,12 +47,22 @@ $(document).ready( function() {
 	clearTable();
     });
 
+    $('#quitbutton').bind('click', function() {
+	quit();
+    });
+
+    $('#closehelpbutton').bind('click', function() {
+	$("#helptextdiv").hide();
+    });
+
     $('#rules').hide();
     $('#guessrules').hide();
     $('#creatures').hide();
     $('#showcreaturebutton').hide();
     $('#clearscores').hide();
     $('#countdown').hide();
+    $('#quit').hide();
+    $("#helptextdiv").hide();
 
     //$('#makepop').hide();    
     //$('#hidepop').hide();    
@@ -528,6 +541,7 @@ function initialiseGame() {
 
     $('#guessrules').show();
     $('#countdown').show();
+    $('#quit').show();
     $('#clearscores').show();
 
     var tick = gametime;
@@ -564,6 +578,18 @@ function endOfGame() {
     }
 }
 
+
+function quit() {
+    clearInterval(timerId);
+    $('#guessruletable .pheno').prop('disabled', 'disabled');
+    $('#guessruletable .allele').prop('disabled', 'disabled'); // false
+    $('#bitsandbuttons').show();
+    $('#hidepop').hide(); 
+    $('#makepop').show(); 
+    $('#quit').hide();
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+}
+
 // -----------------------------------------------------------------------------------------
 // High score table code taken from Hannah's Pythagoras game.
 
@@ -575,7 +601,7 @@ function printTable() {
             for (i=0;i<total_in; i++) {
                  currname.push({'myname':window.localStorage["hiscore."+i+".myname"],'myscore':parseFloat(window.localStorage["hiscore."+i+".myscore"])});
 	    }
-            currname.sort(function(a,b) { return(a.myscore<b.myscore)? -1: ((a.myscore==b.myscore) ? 0:1)});
+            currname.sort(function(a,b) { return(a.myscore>b.myscore)? -1: ((a.myscore==b.myscore) ? 0:1)});
             var hiscore_string="<h2>"+translate[lang]["High Scores"]+"</h2><ol>";
             for (i=0;i<total_in; i++) {
 		    hiscore_string=hiscore_string+"<li>"+currname[i].myscore+" "+currname[i].myname+"</li>"; 
@@ -624,6 +650,10 @@ function setLanguageStrings() {
     $('#seconds').text(translate[lang]["seconds left"]);
     $('.pheno option').each( function() { $(this).text(translate[lang][$(this).val()]); });
     $('.allele option').each( function() {  $(this).text(translate[lang][$(this).val()]); });
+    $("#helptext").text(translate[lang]["helptext"]);
+    $("#helpheading").text(translate[lang]["help"]);
+    $("#helpbutton").text(translate[lang]["help"]);
+    $("#quitbutton").text(translate[lang]["quit"]);
 }
 
 function switchLang(e) {
@@ -638,4 +668,8 @@ function switchLang(e) {
 	setLanguageStrings();
 	printTable(); // also need to redo high score table
     }
+}
+
+function help() {
+    $("#helptextdiv").show();
 }
