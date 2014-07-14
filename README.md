@@ -3,6 +3,8 @@ genome-game
 
 An HTML5/Javascript game for teaching about bioinformatics, binary numbers and understanding genomes. Requires a recent browser to work (not IE 8).
 
+See it in action at http://genome-game.dcs.aber.ac.uk/game
+
 We are aiming to create a game/teaching activity for secondary school children based on bioinformatics. The game can be used to explore counting in binary, combinatorics, and the correspondence between a genome and the physical features of an organism (genotype-phenotype correspondence).
 
 The game has a play-against-the-clock set up, with a high score table, but a typical use of this game as an educational tool in a classroom or science fair would be as follows:
